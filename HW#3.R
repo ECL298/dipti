@@ -8,6 +8,7 @@
 #Now use a pretrained image classification CNN as in Lab 10.9.4 to predict the class of each of your images, and report the probabilities for the top five predicted classes for each image.
 
 install.packages(c("keras3"))
+install.packages("keras")
 install.packages("ISLR2")
 install.packages("dplyr")
 library("ISLR2")
@@ -102,3 +103,39 @@ pred_class <- ifelse(npred > 0.5, 1, 0)
 # Test accuracy
 modnn_test_accuracy <- mean(pred_class == y[testid])
 modnn_test_accuracy
+
+#using pre-trained CNN
+library(keras)
+
+# 1. Path to your folder
+img_dir <- "/Users/dbaral/Documents/VSCode/ECL298/animal_images"
+
+# 2. Get image file names
+image_files <- list.files(img_dir, pattern = ".jpg$", full.names = TRUE)
+
+num_images <- length(image_files)
+num_images
+# 3. Create empty array
+x <- array(dim = c(num_images, 224, 224, 3))
+
+# 4. Load images
+for (i in 1:num_images) {
+  img <- image_load(image_files[i], target_size = c(224, 224))
+  x[i,,, ] <- image_to_array(img)
+}
+
+# 5. Preprocess for ResNet
+x <- imagenet_preprocess_input(x)
+
+# 6. Load pretrained ResNet50
+model <- application_resnet50(weights = "imagenet")
+
+# 7. Predict
+pred <- predict(model, x)
+
+# 8. Decode top 5 predictions
+decoded <- imagenet_decode_predictions(pred, top = 5)
+
+names(decoded) <- basename(image_files)
+
+print(decoded)
