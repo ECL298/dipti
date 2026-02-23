@@ -32,7 +32,16 @@ A data frame with 777 observations on the following 18 variables.
 
 -- For this HW I am using the same dataset used in logistic regression from HW1. 
 
-### 3. Capstone Project 
+### 3. HW#3: 
+
+-- For this HW I am using the "Default" dataset from ISLR package. In this HW I am
+
+Q7. Fitting a neural network to the Default data. Use a single hidden layer with 10 units, and dropout regularization.  I am comparing the classification performance of the model with that of linear logistic regression.  
+
+Q8. From my collection of 10 animal images, I am using a pretrained image classification CNN to predict the class of each of my images, and report the probabilities for the top five predicted classes for each image.
+
+
+### 4. Capstone Project 
 
 #### A. Introduction
 
