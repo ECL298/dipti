@@ -57,3 +57,48 @@ log_accuracy <- mean(pred_class == y_test)
 log_accuracy
 
 ##log_accuracy = 0.97
+
+#fit single layer neural network on Default Data
+#first set up a model structure that describes the network
+library(keras3)
+#define model
+modnn <- keras_model_sequential() |>
+  layer_dense(units = 10, activation = "relu" , input_shape = ncol(x)) |>
+  layer_dropout(rate = 0.4) |>
+  layer_dense(units = 1, activation = "sigmoid")
+#complie model
+compile(modnn,
+        loss = "binary_crossentropy",
+        optimizer = optimizer_rmsprop(), 
+        metrics = list('accuracy'))
+#fit model
+history <- fit(modnn,
+               x[-testid,], y[-testid],
+               epochs=30,
+               batch_size=32,
+               validation_data = list(x[testid, ], y[testid]),
+               verbose=1)
+
+# Plot training history
+library(ggplot2)
+
+# Convert history metrics to a data frame
+history_df <- as.data.frame(history$metrics)
+
+# Plot training vs validation accuracy
+ggplot(history_df, aes(x = seq_along(history_df$accuracy))) +
+  geom_line(aes(y = accuracy, color = "Train Accuracy")) +
+  geom_line(aes(y = val_accuracy, color = "Validation Accuracy")) +
+  labs(x = "Epoch", y = "Accuracy") +
+  scale_color_manual(values = c("blue", "red")) +
+  theme_minimal()
+
+# Predict on test set
+npred <- predict(modnn, x[testid, ])
+
+# Convert probabilities to 0/1 classes
+pred_class <- ifelse(npred > 0.5, 1, 0)
+
+# Test accuracy
+modnn_test_accuracy <- mean(pred_class == y[testid])
+modnn_test_accuracy
