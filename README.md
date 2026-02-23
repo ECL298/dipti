@@ -30,7 +30,7 @@ A data frame with 777 observations on the following 18 variables.
 
 ### 2. HW#3: R script that shows RandomForest
 
--- For this HW I am using the same dataset used in logistic regression from HW#1. 
+-- For this HW I am using the same dataset used in logistic regression from HW1. 
 
 ### 3. Capstone Project 
 
