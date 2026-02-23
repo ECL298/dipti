@@ -28,7 +28,7 @@ A data frame with 777 observations on the following 18 variables.
 - Expend: Instructional expenditure per student 
 - Grad.Rate: Graduation rate
 
-### 2. HW#3: R script that shows RandomForest
+### 2. HW#2: R script that shows RandomForest
 
 -- For this HW I am using the same dataset used in logistic regression from HW1. 
 
