@@ -105,6 +105,8 @@ pred_class <- ifelse(npred > 0.5, 1, 0)
 modnn_test_accuracy <- mean(pred_class == y[testid])
 modnn_test_accuracy
 
+#neural network accuracy = 0.97
+
 #8. From your collection of personal photographs, pick 10 images of animals (such as dogs, cats, birds, farm animals, etc.). 
 #If the subject does not occupy a reasonable part of the image, then crop the image. 460 10. Deep Learning  
 #Now use a pretrained image classification CNN as in Lab 10.9.4 
